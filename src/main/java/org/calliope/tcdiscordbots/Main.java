@@ -3,6 +3,7 @@ package org.calliope.tcdiscordbots;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.exceptions.InvalidTokenException;
 import org.calliope.tcdiscordbots.crow.Crow;
+import org.calliope.tcdiscordbots.crow.CrowDatabaseStartup;
 import org.calliope.tcdiscordbots.resources.BotJDA;
 import org.calliope.tcdiscordbots.resources.BotName;
 import org.slf4j.Logger;
@@ -38,5 +39,7 @@ public class Main {
                 log.error("Bot {} could not be instantiated as token was incorrect.", botName);
             }
         }
+
+        new CrowDatabaseStartup().onStartup(bots.get(BotName.CROW));
     }
 }
