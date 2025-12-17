@@ -1,7 +1,6 @@
 package org.calliope.tcdiscordbots.crow;
 
 import net.dv8tion.jda.api.JDA;
-import org.calliope.tcdiscordbots.resources.sqlite.DatabaseStartup;
 import org.calliope.tcdiscordbots.resources.sqlite.SQLiteDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,12 +9,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class CrowDatabaseStartup implements DatabaseStartup {
+public class CrowDBStartup {
 
-    private static final Logger log = LoggerFactory.getLogger(CrowDatabaseStartup.class);
+    private static final Logger log = LoggerFactory.getLogger(CrowDBStartup.class);
 
-    @Override
-    public void onStartup(JDA jda) {
+    public static void onStartup(JDA jda) {
         try (
                 Connection connection = SQLiteDataSource.getConnection();
                 Statement statement = connection.createStatement();
