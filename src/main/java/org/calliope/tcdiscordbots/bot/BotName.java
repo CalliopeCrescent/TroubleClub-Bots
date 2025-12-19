@@ -1,4 +1,4 @@
-package org.calliope.tcdiscordbots.resources;
+package org.calliope.tcdiscordbots.bot;
 
 public enum BotName {
     CROW,

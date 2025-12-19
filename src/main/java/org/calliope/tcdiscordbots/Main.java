@@ -3,9 +3,9 @@ package org.calliope.tcdiscordbots;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.exceptions.InvalidTokenException;
 import org.calliope.tcdiscordbots.crow.Crow;
-import org.calliope.tcdiscordbots.crow.CrowDBStartup;
-import org.calliope.tcdiscordbots.resources.BotJDA;
-import org.calliope.tcdiscordbots.resources.BotName;
+import org.calliope.tcdiscordbots.crow.yamboard.YamboardDB;
+import org.calliope.tcdiscordbots.bot.BotJDA;
+import org.calliope.tcdiscordbots.bot.BotName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +40,6 @@ public class Main {
             }
         }
 
-        CrowDBStartup.onStartup(bots.get(BotName.CROW));
+        YamboardDB.onStartup(bots.get(BotName.CROW));
     }
 }
