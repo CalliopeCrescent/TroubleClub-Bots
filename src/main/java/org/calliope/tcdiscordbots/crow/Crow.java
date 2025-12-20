@@ -3,9 +3,9 @@ package org.calliope.tcdiscordbots.crow;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
-import org.calliope.tcdiscordbots.crow.yamboard.YamboardConfig;
 import org.calliope.tcdiscordbots.crow.yamboard.YamboardEventListener;
 import org.calliope.tcdiscordbots.bot.BotJDA;
+import org.calliope.tcdiscordbots.resources.commands.slash.SlashManager;
 
 import java.util.List;
 
@@ -28,10 +28,12 @@ public class Crow implements BotJDA {
 
     @Override
     public List<ListenerAdapter> listeners() {
-        YamboardConfig yamboardConfig = new YamboardConfig("yamboard");
+        SlashManager crowSlashManager = new SlashManager();
         return List.of(
-                new YamboardEventListener(yamboardConfig),
-                new CommandEventListener(yamboardConfig)
+                new YamboardEventListener(crowSlashManager),
+                new InvokeEventListener(crowSlashManager)
         );
     }
+
+
 }

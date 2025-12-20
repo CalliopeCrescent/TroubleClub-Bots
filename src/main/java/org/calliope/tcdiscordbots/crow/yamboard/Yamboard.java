@@ -20,7 +20,7 @@ public class Yamboard {
 
         EmbedBuilder textBuilder = new EmbedBuilder();
         textBuilder.setColor(RandomColor.getRandomColor());
-        textBuilder.setAuthor(yammer.getNickname(), message.getJumpUrl(), yammer.getEffectiveAvatarUrl());
+        textBuilder.setAuthor(yammer.getNickname(), null, yammer.getEffectiveAvatarUrl());
         textBuilder.setTitle("Yammed by " + yammer.getNickname(), message.getJumpUrl());
         textBuilder.setDescription(message.getContentRaw());
         textBuilder.setFooter(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm a", Locale.US)));

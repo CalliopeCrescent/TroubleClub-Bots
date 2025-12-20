@@ -1,6 +1,5 @@
 package org.calliope.tcdiscordbots.crow.yamboard;
 
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.MessageDeleteEvent;
@@ -10,6 +9,9 @@ import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEmojiEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.calliope.tcdiscordbots.crow.invokes.slash.SetDetectChannel;
+import org.calliope.tcdiscordbots.crow.invokes.slash.SetPostChannel;
+import org.calliope.tcdiscordbots.resources.commands.slash.SlashManager;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +19,13 @@ import org.slf4j.LoggerFactory;
 public class YamboardEventListener extends ListenerAdapter {
 
     private static final Logger log = LoggerFactory.getLogger(YamboardEventListener.class);
-    private final YamboardConfig yamboardConfig;
+    private final YamboardConfig yamboardConfig = new YamboardConfig("yamboard");
     private TextChannel detectChannel, postChannel;
     private Emoji yamEmoji;
 
-    public YamboardEventListener(YamboardConfig yamboardConfig) {
-        this.yamboardConfig = yamboardConfig;
+    public YamboardEventListener(SlashManager slashManager) {
+        slashManager.addSlash(new SetDetectChannel(this, yamboardConfig));
+        slashManager.addSlash(new SetPostChannel(this, yamboardConfig));
     }
 
     @Override
@@ -104,5 +107,13 @@ public class YamboardEventListener extends ListenerAdapter {
 
         postChannel.deleteMessageById(yamId).queue();
         YamboardDB.deleteYamHistoryByMessage(event.getMessageId());
+    }
+
+    public void updateDetectChannel(TextChannel channel) {
+        detectChannel = channel;
+    }
+
+    public void updatePostChannel(TextChannel channel) {
+        postChannel = channel;
     }
 }
