@@ -18,10 +18,16 @@ public class Yamboard {
     protected static List<MessageEmbed> createEmbeds(Message message, Member yammer) {
         List<EmbedBuilder> builders = new ArrayList<>();
 
+        String yammerName = yammer.getNickname();
+        if (yammerName == null) yammerName = yammer.getEffectiveName();
+
+        String messageName = message.getMember().getNickname();
+        if (messageName == null) messageName = yammer.getEffectiveName();
+
         EmbedBuilder textBuilder = new EmbedBuilder();
         textBuilder.setColor(RandomColor.getRandomColor());
-        textBuilder.setAuthor(yammer.getNickname(), null, yammer.getEffectiveAvatarUrl());
-        textBuilder.setTitle("Yammed by " + yammer.getNickname(), message.getJumpUrl());
+        textBuilder.setAuthor(messageName, null, message.getMember().getEffectiveAvatarUrl());
+        textBuilder.setTitle("Yammed by " + yammerName, message.getJumpUrl());
         textBuilder.setDescription(message.getContentRaw());
         textBuilder.setFooter(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm a", Locale.US)));
         builders.add(textBuilder);

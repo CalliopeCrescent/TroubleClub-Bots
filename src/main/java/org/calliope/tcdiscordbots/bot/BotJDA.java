@@ -16,6 +16,7 @@ public interface BotJDA {
                 .enableIntents(intents())
                 .setMemberCachePolicy(cachePolicy())
                 .addEventListeners(listeners().toArray())
+                .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES)
                 .build();
     }
 
